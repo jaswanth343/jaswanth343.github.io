@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaswanth Reddy Lanka | Portfolio</title>
+  <meta name="description" content="Jaswanth Reddy Lanka — MSBA @ UMass Amherst | Business & Data Analyst | Portfolio" />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- ===== Animated Background ===== -->
+  <div class="bg-anim" aria-hidden="true">
+    <svg class="chart-lines" viewBox="0 0 1200 600" preserveAspectRatio="none">
+      <path class="line l1" d="M0,420 C200,340 320,460 520,380 C700,300 820,420 980,350 C1080,310 1140,260 1200,240" />
+      <path class="line l2" d="M0,460 C220,520 360,360 520,420 C680,480 820,330 980,390 C1100,440 1150,380 1200,360" />
+      <path class="line l3" d="M0,380 C160,420 320,260 520,320 C680,380 860,220 980,290 C1100,360 1140,340 1200,300" />
+    </svg>
+
+    <div class="float-icons">
+      <div class="fi f1">SQL</div>
+      <div class="fi f2">Py</div>
+      <div class="fi f3">BI</div>
+      <div class="fi f4">Tb</div>
+      <div class="fi f5">{ }</div>
+      <div class="fi f6">ML</div>
+    </div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <header class="topbar">
+    <nav class="nav" aria-label="Main Navigation">
+      <div class="brand">
+        <div class="brand-dot"></div>
+        <div>
+          <div class="brand-title">Jaswanth</div>
+          <div class="brand-sub">Business & Data Analyst</div>
+        </div>
+      </div>
+
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="nav-links">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <ul id="nav-links" class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-card">
+      <div class="hero-top">
+        <img class="avatar" src="./profile.jpeg" alt="Jaswanth Reddy Lanka profile photo" />
+        <div class="hero-top-text">
+          <div class="hero-badge">
+            <span class="pulse"></span>
+            <span>Open to Full-Time Business / Data Analyst Roles</span>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        Hey, I’m <span class="accent">Jaswanth Reddy Lanka</span>
+      </h1>
+
+      <p class="hero-subtitle" id="hero-typed">
+        MSBA Candidate @ UMass Amherst • SQL • Python • Tableau • Power BI • Supply Chain Analytics
+      </p>
+
+      <div class="hero-chips">
+        <span class="chip"><i class="fa-solid fa-database"></i> SQL</span>
+        <span class="chip"><i class="fa-brands fa-python"></i> Python</span>
+        <span class="chip"><i class="fa-solid fa-chart-column"></i> Power BI</span>
+        <span class="chip"><i class="fa-solid fa-chart-line"></i> Tableau</span>
+        <span class="chip"><i class="fa-solid fa-gears"></i> Automation</span>
+        <span class="chip"><i class="fa-solid fa-wand-magic-sparkles"></i> ML</span>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn" href="https://www.linkedin.com/in/jaswanth-reddy-lanka/" target="_blank" rel="noreferrer">
+          <i class="fa-brands fa-linkedin"></i> LinkedIn
+        </a>
+        <a class="btn btn-outline" href="https://github.com/jaswanth343" target="_blank" rel="noreferrer">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+        <a class="btn btn-ghost" href="./resume.pdf" download>
+          <i class="fa-solid fa-file-arrow-down"></i> Resume
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2 class="section-title"><i class="fa-solid fa-user"></i> About</h2>
+      <div class="section-card" id="about-content"></div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+      <div class="grid" id="education-content"></div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Work Experience</h2>
+      <div class="timeline" id="experience-content"></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Projects</h2>
+      <p class="muted">Auto-loaded from GitHub.</p>
+      <div id="projects-grid" class="project-grid" aria-live="polite"></div>
+      <div class="center-row">
+        <a class="btn btn-outline dark-outline" href="https://github.com/jaswanth343?tab=repositories" target="_blank" rel="noreferrer">
+          View all repos →
+        </a>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <h2 class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i> Skills</h2>
+      <div class="skills-grid">
+        <span class="pill"><i class="fa-solid fa-database"></i> SQL</span>
+        <span class="pill"><i class="fa-brands fa-python"></i> Python (pandas, NumPy, scikit-learn)</span>
+        <span class="pill"><i class="fa-solid fa-chart-column"></i> Power BI</span>
+        <span class="pill"><i class="fa-solid fa-chart-line"></i> Tableau</span>
+        <span class="pill"><i class="fa-solid fa-file-excel"></i> Excel (Power Query, PivotTables, VBA)</span>
+        <span class="pill"><i class="fa-solid fa-gears"></i> ETL / Data Cleaning</span>
+        <span class="pill"><i class="fa-solid fa-brain"></i> ML (Regression, Classification)</span>
+        <span class="pill"><i class="fa-solid fa-people-group"></i> Stakeholder Communication</span>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section">
+      <h2 class="section-title"><i class="fa-solid fa-certificate"></i> Certifications</h2>
+      <div class="grid" id="certifications-content"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2 class="section-title"><i class="fa-solid fa-envelope"></i> Contact</h2>
+
+      <div class="contact-cards">
+        <a class="contact-card" id="email-link" href="#">
+          <i class="fa-solid fa-envelope"></i>
+          <div>
+            <div class="contact-title">Email</div>
+            <div class="contact-sub" id="email-text">your@email.com</div>
+          </div>
+        </a>
+
+        <a class="contact-card" href="https://www.linkedin.com/in/jaswanth-reddy-lanka/" target="_blank" rel="noreferrer">
+          <i class="fa-brands fa-linkedin"></i>
+          <div>
+            <div class="contact-title">LinkedIn</div>
+            <div class="contact-sub">Connect with me</div>
+          </div>
+        </a>
+
+        <a class="contact-card" href="https://github.com/jaswanth343" target="_blank" rel="noreferrer">
+          <i class="fa-brands fa-github"></i>
+          <div>
+            <div class="contact-title">GitHub</div>
+            <div class="contact-sub">See my work</div>
+          </div>
+        </a>
+      </div>
+
+      <form id="contact-form" class="contact-form">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your Name" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Your Email" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+
+        <button type="submit">Send Message</button>
+        <div id="form-status" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Jaswanth Reddy Lanka. All rights reserved.</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
