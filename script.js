@@ -66,7 +66,6 @@ I’m passionate about AI-driven analytics and data visualization to solve compl
   certifications: [
     { name: "Data Analytics Essentials", org: "Cisco", issued: "Jul 2025" },
     { name: "Financial Analyst – Equity Markets Analyst", org: "Finlatics", issued: "Aug 2023" },
-    { name: "Data Science with Python", org: "Finlatics", issued: "—" },
     { name: "Microsoft Power BI Desktop for Business Intelligence", org: "Udemy", issued: "May 2022" },
     { name: "SQL (Basic)", org: "HackerRank", issued: "Mar 2022" },
     { name: "ITIL Foundation Certification in IT Service Management", org: "PeopleCert", issued: "Jan 2022" },
@@ -74,15 +73,9 @@ I’m passionate about AI-driven analytics and data visualization to solve compl
     { name: "Foundations: Data, Data, Everywhere", org: "Google (Coursera)", issued: "Sep 2021" },
     { name: "Data Fluency: Exploring and Describing Data", org: "LinkedIn", issued: "Aug 2021" },
     { name: "Learning Data Analytics", org: "LinkedIn", issued: "Aug 2021" },
-    { name: "Financial Modeling and Valuation", org: "Internshala", issued: "Jul 2021" },
-    { name: "SQL: Data Reporting and Analysis", org: "LinkedIn", issued: "—" },
-    { name: "Digital Marketing", org: "Internshala", issued: "—" }
+    { name: "Financial Modeling and Valuation", org: "Internshala", issued: "Jul 2021" }
   ],
-  contact: {
-    email: "jaswanth.reddy060@gmail.com",
-    linkedin: "https://www.linkedin.com/in/jaswanth-reddy-lanka/",
-    github: "https://github.com/jaswanth343"
-  }
+  contact: { email: "jlanka@umass.edu" }
 };
 
 // ===============================
@@ -96,6 +89,7 @@ if (toggle && links) {
     const expanded = toggle.getAttribute("aria-expanded") === "true";
     toggle.setAttribute("aria-expanded", String(!expanded));
     links.classList.toggle("active");
+    document.body.classList.toggle("menu-open");
   });
 }
 
@@ -103,6 +97,7 @@ document.querySelectorAll("#nav-links a").forEach((a) => {
   a.addEventListener("click", () => {
     links?.classList.remove("active");
     toggle?.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("menu-open");
   });
 });
 
@@ -138,10 +133,8 @@ const emailLink = document.getElementById("email-link");
 
 if (emailText && emailLink) {
   emailText.textContent = PROFILE.contact.email;
-
   const subject = encodeURIComponent("Portfolio Inquiry");
   const body = encodeURIComponent("Hi Jaswanth,\n\nI’m reaching out after viewing your portfolio.\n\n");
-
   emailLink.href = `mailto:${PROFILE.contact.email}?subject=${subject}&body=${body}`;
 }
 
@@ -194,7 +187,7 @@ function renderCertifications() {
   el.innerHTML = PROFILE.certifications.map(c => `
     <div class="card">
       <h3>${c.name}</h3>
-      <div class="meta">${c.org}${c.issued && c.issued !== "—" ? ` • Issued ${c.issued}` : ""}</div>
+      <div class="meta">${c.org}${c.issued ? ` • Issued ${c.issued}` : ""}</div>
     </div>
   `).join("");
 }
