@@ -3,46 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jaswanth Reddy Lanka | Portfolio</title>
-  <meta name="description" content="Jaswanth Reddy Lanka — Business & Data Analyst | Portfolio" />
-
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Jaswanth Reddy Lanka | Data Analyst Portfolio</title>
+  <meta name="description" content="Jaswanth Reddy Lanka — Data Analyst | SQL, Python, Power BI, Tableau, ML Analytics | 3+ years experience" />
+  <meta property="og:title" content="Jaswanth Reddy Lanka | Data Analyst" />
+  <meta property="og:description" content="Cyberpunk portfolio — SQL · Python · Power BI · Tableau · ML" />
+  <meta property="og:type" content="website" />
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
   <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  <!-- Background animations -->
-  <div class="bg-anim" aria-hidden="true">
-    <svg class="chart-lines" viewBox="0 0 1200 600" preserveAspectRatio="none">
-      <path class="line l1" d="M0,420 C200,340 320,460 520,380 C700,300 820,420 980,350 C1080,310 1140,260 1200,240" />
-      <path class="line l2" d="M0,460 C220,520 360,360 520,420 C680,480 820,330 980,390 C1100,440 1150,380 1200,360" />
-      <path class="line l3" d="M0,380 C160,420 320,260 520,320 C680,380 860,220 980,290 C1100,360 1140,340 1200,300" />
-    </svg>
+  <!-- Particle canvas background -->
+  <canvas id="particle-canvas"></canvas>
 
-    <div class="float-icons">
-      <div class="fi f1">SQL</div>
-      <div class="fi f2">Py</div>
-      <div class="fi f3">BI</div>
-      <div class="fi f4">Tb</div>
-      <div class="fi f5">ML</div>
-    </div>
+  <!-- Scan line overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Gradient blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
   </div>
 
   <!-- NAV -->
   <header class="topbar">
     <nav class="nav" aria-label="Main Navigation">
       <div class="brand">
-        <div class="brand-dot"></div>
+        <div class="brand-icon">JL</div>
         <div>
-          <div class="brand-title">Jaswanth</div>
-          <div class="brand-sub">Business & Data Analyst</div>
+          <div class="brand-title">JASWANTH</div>
+          <div class="brand-sub">Data Analyst</div>
         </div>
       </div>
 
@@ -56,7 +49,7 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
-        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#certifications">Certs</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -66,32 +59,32 @@
   <section class="hero" id="home">
     <div class="hero-card">
       <div class="hero-top">
-        <img class="avatar" src="./profile.jpeg" alt="Jaswanth Reddy Lanka profile photo" />
+        <img class="avatar" src="./profile.jpeg" alt="Jaswanth Reddy Lanka" onerror="this.style.display='none'" />
         <div class="hero-badge">
-          <span class="pulse"></span>
-          <span>Open to Full-Time Business / Data Analyst Roles</span>
+          <span class="pulse-dot"></span>
+          <span>Open to Full-Time Data Analyst Roles</span>
         </div>
       </div>
 
       <h1 class="hero-title">
-        Hey, I’m <span class="accent">Jaswanth Reddy Lanka</span>
+        Hey, I'm <span class="glitch" data-text="Jaswanth Reddy Lanka">Jaswanth Reddy Lanka</span>
       </h1>
 
-      <p class="hero-subtitle">
-        MSBA Candidate @ UMass Amherst • SQL • Python • Tableau • Power BI • Supply Chain Analytics
-      </p>
+      <p class="hero-subtitle" id="typed-target"></p>
 
       <div class="hero-chips">
         <span class="chip"><i class="fa-solid fa-database"></i> SQL</span>
         <span class="chip"><i class="fa-brands fa-python"></i> Python</span>
         <span class="chip"><i class="fa-solid fa-chart-column"></i> Power BI</span>
         <span class="chip"><i class="fa-solid fa-chart-line"></i> Tableau</span>
-        <span class="chip"><i class="fa-solid fa-gears"></i> Automation</span>
-        <span class="chip"><i class="fa-solid fa-wand-magic-sparkles"></i> ML</span>
+        <span class="chip"><i class="fa-solid fa-snowflake"></i> Snowflake</span>
+        <span class="chip"><i class="fa-solid fa-brain"></i> Machine Learning</span>
+        <span class="chip"><i class="fa-solid fa-gears"></i> ETL / Automation</span>
+        <span class="chip"><i class="fa-solid fa-cloud"></i> AWS</span>
       </div>
 
       <div class="hero-actions">
-        <a class="btn" href="https://www.linkedin.com/in/jaswanth-reddy-lanka/" target="_blank" rel="noreferrer">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/jaswanth-reddy-lanka/" target="_blank" rel="noreferrer">
           <i class="fa-brands fa-linkedin"></i> LinkedIn
         </a>
         <a class="btn btn-outline" href="https://github.com/jaswanth343" target="_blank" rel="noreferrer">
@@ -100,14 +93,20 @@
         <a class="btn btn-ghost" href="./resume.pdf" download>
           <i class="fa-solid fa-file-arrow-down"></i> Resume
         </a>
+        <a class="btn btn-magenta" href="#contact">
+          <i class="fa-solid fa-paper-plane"></i> Contact
+        </a>
       </div>
+
+      <!-- Stats strip -->
+      <div class="stats-strip" id="stats-strip" aria-label="Career highlights"></div>
     </div>
   </section>
 
   <main class="wrap">
     <section id="about" class="section">
-      <h2 class="section-title"><i class="fa-solid fa-user"></i> About</h2>
-      <div class="section-card" id="about-content"></div>
+      <h2 class="section-title"><i class="fa-solid fa-terminal"></i> About</h2>
+      <div class="section-card" id="summary-content"></div>
     </section>
 
     <section id="education" class="section">
@@ -116,49 +115,53 @@
     </section>
 
     <section id="experience" class="section">
-      <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Work Experience</h2>
+      <h2 class="section-title"><i class="fa-solid fa-rocket"></i> Experience</h2>
       <div class="timeline" id="experience-content"></div>
     </section>
 
     <section id="projects" class="section">
-      <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Projects</h2>
-      <p class="muted">Auto-loaded from GitHub.</p>
+      <h2 class="section-title"><i class="fa-solid fa-code"></i> Featured Projects</h2>
+      <p class="muted">Academic & personal — built with real data and ML models.</p>
+      <div class="project-grid" id="academic-projects"></div>
+
+      <h3 class="sub-heading"><i class="fa-brands fa-github"></i> GitHub Repos</h3>
+      <p class="muted">Auto-synced from my GitHub account.</p>
       <div id="projects-grid" class="project-grid" aria-live="polite"></div>
-      <div class="center-row">
-        <a class="btn btn-outline dark-outline" href="https://github.com/jaswanth343?tab=repositories" target="_blank" rel="noreferrer">
-          View all repos →
+
+      <div class="center-row" style="margin-top:16px">
+        <a class="btn btn-outline" href="https://github.com/jaswanth343?tab=repositories" target="_blank" rel="noreferrer">
+          <i class="fa-brands fa-github"></i> View All Repos
         </a>
       </div>
     </section>
 
     <section id="skills" class="section">
-      <h2 class="section-title"><i class="fa-solid fa-screwdriver-wrench"></i> Skills</h2>
-      <div class="skills-grid">
-        <span class="pill"><i class="fa-solid fa-database"></i> SQL</span>
-        <span class="pill"><i class="fa-brands fa-python"></i> Python (pandas, NumPy, scikit-learn)</span>
-        <span class="pill"><i class="fa-solid fa-chart-column"></i> Power BI</span>
-        <span class="pill"><i class="fa-solid fa-chart-line"></i> Tableau</span>
-        <span class="pill"><i class="fa-solid fa-file-excel"></i> Excel (Power Query, PivotTables, VBA)</span>
-        <span class="pill"><i class="fa-solid fa-gears"></i> ETL / Data Cleaning</span>
-        <span class="pill"><i class="fa-solid fa-brain"></i> ML (Regression, Classification)</span>
-        <span class="pill"><i class="fa-solid fa-people-group"></i> Stakeholder Communication</span>
-      </div>
+      <h2 class="section-title"><i class="fa-solid fa-microchip"></i> Skills</h2>
+      <div id="skills-content" class="skills-wrap"></div>
     </section>
 
     <section id="certifications" class="section">
-      <h2 class="section-title"><i class="fa-solid fa-certificate"></i> Certifications</h2>
+      <h2 class="section-title"><i class="fa-solid fa-award"></i> Certifications</h2>
       <div class="grid" id="certifications-content"></div>
     </section>
 
     <section id="contact" class="section">
-      <h2 class="section-title"><i class="fa-solid fa-envelope"></i> Contact</h2>
+      <h2 class="section-title"><i class="fa-solid fa-satellite-dish"></i> Get in Touch</h2>
 
       <div class="contact-cards">
         <a class="contact-card" id="email-link" href="#">
           <i class="fa-solid fa-envelope"></i>
           <div>
             <div class="contact-title">Email</div>
-            <div class="contact-sub" id="email-text">jlanka@umass.edu</div>
+            <div class="contact-sub" id="email-text">jaswanth.reddy060@gmail.com</div>
+          </div>
+        </a>
+
+        <a class="contact-card" id="phone-link" href="#">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <div class="contact-title">Phone</div>
+            <div class="contact-sub" id="phone-text">(413) 510-7534</div>
           </div>
         </a>
 
@@ -166,7 +169,7 @@
           <i class="fa-brands fa-linkedin"></i>
           <div>
             <div class="contact-title">LinkedIn</div>
-            <div class="contact-sub">Connect with me</div>
+            <div class="contact-sub">Let's connect</div>
           </div>
         </a>
 
@@ -174,29 +177,30 @@
           <i class="fa-brands fa-github"></i>
           <div>
             <div class="contact-title">GitHub</div>
-            <div class="contact-sub">See my work</div>
+            <div class="contact-sub">See my code</div>
           </div>
         </a>
       </div>
 
       <form id="contact-form" class="contact-form">
-        <label for="name">Name</label>
-        <input id="name" name="name" type="text" placeholder="Your Name" required />
+        <label for="c-name">Name</label>
+        <input id="c-name" name="name" type="text" placeholder="Your Name" required />
 
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="Your Email" required />
+        <label for="c-email">Email</label>
+        <input id="c-email" name="email" type="email" placeholder="Your Email" required />
 
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+        <label for="c-message">Message</label>
+        <textarea id="c-message" name="message" rows="5" placeholder="Your Message" required></textarea>
 
-        <button type="submit">Send Message</button>
+        <button type="submit">Transmit Message</button>
         <div id="form-status" aria-live="polite"></div>
       </form>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; <span id="year"></span> Jaswanth Reddy Lanka. All rights reserved.</p>
+    <hr class="footer-line" />
+    <p>&copy; <span id="year"></span> Jaswanth Reddy Lanka &mdash; Designed with precision in Amherst, MA.</p>
   </footer>
 
   <script src="./script.js"></script>
