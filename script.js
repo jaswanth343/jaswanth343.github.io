@@ -231,6 +231,9 @@ I'm most interested in roles where analytics meets automation — building pipel
     particles.forEach(p => { p.update(); p.draw(); });
 
     // connecting lines
+    particles.forEach(p => { p.update(); p.draw(); });
+
+    // draw connecting lines
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -238,6 +241,7 @@ I'm most interested in roles where analytics meets automation — building pipel
         const dist = Math.sqrt(dx*dx + dy*dy);
         if (dist < CONNECT_DIST) {
           const alpha = (1 - dist / CONNECT_DIST) * .18;
+          const alpha = (1 - dist / CONNECT_DIST) * .15;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -259,6 +263,7 @@ I'm most interested in roles where analytics meets automation — building pipel
           ctx.lineTo(mouse.x, mouse.y);
           ctx.strokeStyle = `rgba(255,0,170,${alpha})`;
           ctx.lineWidth = .8;
+          ctx.lineWidth = .6;
           ctx.stroke();
         }
       }
