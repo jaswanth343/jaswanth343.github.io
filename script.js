@@ -146,8 +146,9 @@ I'm most interested in roles where analytics meets automation — building pipel
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let w, h, particles = [], mouse = { x: -999, y: -999 };
-  const PARTICLE_COUNT = 80;
-  const CONNECT_DIST = 140;
+  const PARTICLE_COUNT = 120;
+  const CONNECT_DIST = 160;
+  const MOUSE_RADIUS = 180;
 
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -159,32 +160,55 @@ I'm most interested in roles where analytics meets automation — building pipel
   document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
   document.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
 
+  const COLORS = [
+    '0,240,255',   // cyan
+    '255,0,170',   // magenta
+    '168,85,247',   // purple
+    '57,255,20',    // green
+    '255,107,43'    // orange
+  ];
+
   class Particle {
     constructor() {
       this.x = Math.random() * w;
       this.y = Math.random() * h;
-      this.vx = (Math.random() - .5) * .4;
-      this.vy = (Math.random() - .5) * .4;
-      this.r = Math.random() * 2 + .8;
-      this.color = Math.random() > .6 ? '0,240,255' : (Math.random() > .5 ? '255,0,170' : '168,85,247');
+      this.vx = (Math.random() - .5) * .5;
+      this.vy = (Math.random() - .5) * .5;
+      this.r = Math.random() * 2.5 + .6;
+      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      this.baseAlpha = Math.random() * .4 + .3;
+      this.pulse = Math.random() * Math.PI * 2;
     }
     update() {
       this.x += this.vx; this.y += this.vy;
+      this.pulse += .02;
       if (this.x < 0 || this.x > w) this.vx *= -1;
       if (this.y < 0 || this.y > h) this.vy *= -1;
 
-      // mouse repulsion
+      // mouse interaction — attract nearby, push very close
       const dx = this.x - mouse.x, dy = this.y - mouse.y;
       const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 120) {
-        this.x += dx / dist * 1.5;
-        this.y += dy / dist * 1.5;
+      if (dist < MOUSE_RADIUS && dist > 40) {
+        // gentle attraction
+        this.x -= dx / dist * .6;
+        this.y -= dy / dist * .6;
+      } else if (dist <= 40) {
+        // repel when too close
+        this.x += dx / dist * 2;
+        this.y += dy / dist * 2;
       }
     }
     draw() {
+      const alpha = this.baseAlpha + Math.sin(this.pulse) * .15;
+      // glow effect
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * 3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color},${alpha * .12})`;
+      ctx.fill();
+      // core
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.color},.6)`;
+      ctx.fillStyle = `rgba(${this.color},${alpha})`;
       ctx.fill();
     }
   }
@@ -193,6 +217,20 @@ I'm most interested in roles where analytics meets automation — building pipel
 
   function animate() {
     ctx.clearRect(0, 0, w, h);
+
+    // mouse glow
+    if (mouse.x > 0) {
+      const grd = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 200);
+      grd.addColorStop(0, 'rgba(0,240,255,.06)');
+      grd.addColorStop(.5, 'rgba(255,0,170,.03)');
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
+      ctx.fillRect(mouse.x - 200, mouse.y - 200, 400, 400);
+    }
+
+    particles.forEach(p => { p.update(); p.draw(); });
+
+    // connecting lines
     particles.forEach(p => { p.update(); p.draw(); });
 
     // draw connecting lines
@@ -202,11 +240,29 @@ I'm most interested in roles where analytics meets automation — building pipel
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx*dx + dy*dy);
         if (dist < CONNECT_DIST) {
+          const alpha = (1 - dist / CONNECT_DIST) * .18;
           const alpha = (1 - dist / CONNECT_DIST) * .15;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.strokeStyle = `rgba(0,240,255,${alpha})`;
+          ctx.lineWidth = .7;
+          ctx.stroke();
+        }
+      }
+
+      // also connect to mouse
+      if (mouse.x > 0) {
+        const dx = particles[i].x - mouse.x;
+        const dy = particles[i].y - mouse.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MOUSE_RADIUS) {
+          const alpha = (1 - dist / MOUSE_RADIUS) * .3;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(255,0,170,${alpha})`;
+          ctx.lineWidth = .8;
           ctx.lineWidth = .6;
           ctx.stroke();
         }
