@@ -683,6 +683,86 @@ loadGitHubProjects();
 })();
 
 // ===============================
+// CHIBI MASCOT — eye-tracking + speech bubble
+// ===============================
+(function mascotEyes() {
+  const mascot = document.querySelector('.mascot');
+  if (!mascot) return;
+  const leftPupil  = mascot.querySelector('.pupil-left');
+  const rightPupil = mascot.querySelector('.pupil-right');
+  if (!leftPupil || !rightPupil) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MAX = 3; // pupil wander radius (px)
+
+  function aimAt(clientX, clientY) {
+    // Aim each pupil from its own socket center so both eyes converge on the cursor
+    [[leftPupil, 44, 34], [rightPupil, 66, 34]].forEach(([pupil, sx, sy]) => {
+      const rect = mascot.getBoundingClientRect();
+      // map socket SVG coords (viewBox 0-110, 0-130) into client coords
+      const vbW = 110, vbH = 130;
+      const socketX = rect.left + (sx / vbW) * rect.width;
+      const socketY = rect.top  + (sy / vbH) * rect.height;
+      const dx = clientX - socketX;
+      const dy = clientY - socketY;
+      const angle = Math.atan2(dy, dx);
+      const ox = Math.cos(angle) * MAX;
+      const oy = Math.sin(angle) * MAX;
+      pupil.setAttribute('transform', `translate(${ox} ${oy})`);
+    });
+  }
+
+  if (!reduce) {
+    window.addEventListener('mousemove', (e) => aimAt(e.clientX, e.clientY), { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) aimAt(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+  }
+
+  // Idle blink
+  if (!reduce) {
+    setInterval(() => {
+      [leftPupil, rightPupil].forEach(p => {
+        const prev = p.getAttribute('r') || '3';
+        p.setAttribute('r', '0.5');
+        setTimeout(() => p.setAttribute('r', prev), 130);
+      });
+    }, 4200 + Math.random() * 1500);
+  }
+
+  // Speech bubble rotation
+  const bubble = document.getElementById('mascot-speech');
+  const textEl = document.getElementById('mascot-text');
+  const quips = [
+    { bubble: "Let's ship it!",        screen: "DATA"   },
+    { bubble: "SQL inbound 🎯",        screen: "QUERY"  },
+    { bubble: "Dashboards ready",      screen: "VIZ"    },
+    { bubble: "Insights unlocked",     screen: "INSIGHT"},
+    { bubble: "Need a recruiter? 👀",  screen: "HIRE"   },
+    { bubble: "Level up.",             screen: "LV UP"  }
+  ];
+  let qi = 0;
+  function showQuip() {
+    if (!bubble) return;
+    const q = quips[qi % quips.length];
+    bubble.textContent = q.bubble;
+    if (textEl) textEl.textContent = q.screen;
+    bubble.classList.add('show');
+    setTimeout(() => bubble.classList.remove('show'), 3200);
+    qi++;
+  }
+  // First show after short delay, then every 7s
+  setTimeout(showQuip, 1500);
+  setInterval(showQuip, 7000);
+
+  // Click the mascot → pop a random quip immediately
+  mascot.addEventListener('click', () => {
+    qi = Math.floor(Math.random() * quips.length);
+    showQuip();
+  });
+})();
+
+// ===============================
 // MODE TOGGLE (DATA / BUSINESS)
 // ===============================
 (function modeSwitch() {
