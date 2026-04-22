@@ -2,11 +2,11 @@
 // PROFILE DATA
 // ===============================
 const PROFILE = {
-  summary: `Data Analyst with 3+ years of experience across consulting and business analytics environments, specializing in Python, SQL, Power BI, Tableau, and machine learning–driven analytics. I've redesigned 50+ business workflows and SQL processes, automated dashboards adopted by cross-functional teams to monitor sales, logistics, and performance KPIs, and delivered predictive and AI-supported analytics solutions driving pricing, inventory, and customer-behavior decisions.`,
+  summary: `Data &amp; Business Analyst with 3+ years of experience across consulting and business analytics environments, specializing in SQL, Python, Power BI, Tableau, and machine-learning–driven analytics. I translate ambiguous business problems into measurable KPIs, redesign workflows, and ship automated dashboards and predictive models that leaders actually use — across sales, logistics, pricing, and customer-behavior decisions.`,
 
-  about: `Currently pursuing my Master's in Business Analytics at UMass Amherst (GPA 3.8/4.0), I turn complex, messy data into decisions leaders can act on. My work spans supply-chain analytics at Accenture's Flo Group, automated reporting for retail operations at Poona Agro Cart, and machine-learning projects predicting car prices and customer behavior.
+  about: `Currently pursuing my Master's in Business Analytics at UMass Amherst (GPA 3.8/4.0), I sit at the intersection of <strong>Data Analyst</strong> and <strong>Business Analyst</strong> work — gathering requirements from stakeholders, modeling the data, and delivering the dashboards and insights that drive the decision. My experience spans supply-chain analytics at Accenture's Flo Group, automated retail reporting at Poona Agro Cart, and ML projects predicting car prices and customer behavior.
 
-I'm most interested in roles where analytics meets automation — building pipelines and dashboards that stop being "reports" and start being the system of record teams operate from.`,
+I'm most interested in roles where business context meets analytics automation — building pipelines, dashboards, and models that stop being "reports" and start being the system of record teams operate from.`,
 
   stats: [
     { value: "3+",  label: "Years Experience" },
@@ -276,10 +276,11 @@ I'm most interested in roles where analytics meets automation — building pipel
   if (!el) return;
 
   const lines = [
-    'Data Analyst · MSBA @ UMass Amherst',
+    'Data Analyst // Business Analyst',
+    'MSBA @ UMass Amherst · GPA 3.8',
     'SQL · Python · Power BI · Tableau · ML',
-    '3+ yrs turning raw data into strategic decisions.',
-    'Let\'s build something data-driven together.'
+    '3+ yrs bridging business questions and data answers.',
+    'Let\'s turn data into decisions — together.'
   ];
 
   let lineIdx = 0, charIdx = 0, deleting = false, pause = 0;
