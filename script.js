@@ -101,50 +101,22 @@ I'm most interested in roles where business context meets analytics automation �
   ],
 
   skills: {
-    "Programming & Analytics": {
-      icon: "fa-solid fa-code",
-      items: [
-        { name: "SQL",                       score: 95 },
-        { name: "Python (Pandas, NumPy, Scikit-learn)", score: 88 },
-        { name: "Machine Learning",          score: 82 },
-        { name: "Predictive Modeling",       score: 85 },
-        { name: "Statistical Analysis",      score: 80 },
-        { name: "A/B Testing",               score: 75 }
-      ]
-    },
-    "Visualization & BI": {
-      icon: "fa-solid fa-chart-column",
-      items: [
-        { name: "Power BI",                  score: 92 },
-        { name: "Tableau",                   score: 90 },
-        { name: "Oracle BI Analytics",       score: 85 },
-        { name: "Dashboard Development",     score: 93 },
-        { name: "KPI Design",                score: 90 },
-        { name: "ETL Processes",             score: 88 }
-      ]
-    },
-    "Data & Cloud": {
-      icon: "fa-solid fa-database",
-      items: [
-        { name: "PL/SQL",                    score: 90 },
-        { name: "Data Warehousing",          score: 85 },
-        { name: "Snowflake",                 score: 80 },
-        { name: "Oracle Cloud",              score: 82 },
-        { name: "AWS",                       score: 75 },
-        { name: "Alteryx",                   score: 72 }
-      ]
-    },
-    "Platforms & Tools": {
-      icon: "fa-solid fa-gears",
-      items: [
-        { name: "Excel (Power Query, VBA)",  score: 95 },
-        { name: "Oracle Transportation Mgmt",score: 92 },
-        { name: "Oracle Integration Cloud",  score: 90 },
-        { name: "Jira",                      score: 85 },
-        { name: "ServiceNow",                score: 82 },
-        { name: "Git",                       score: 75 }
-      ]
-    }
+    "Programming & Analytics": [
+      "SQL", "Python (Pandas, NumPy, Scikit-learn)", "Machine Learning",
+      "Predictive Modeling", "AI-driven Analytics", "Statistical Analysis", "A/B Testing"
+    ],
+    "Visualization & BI": [
+      "Power BI", "Tableau", "Oracle BI Analytics",
+      "Dashboard Development", "KPI Design", "ETL Processes", "Data Cleaning"
+    ],
+    "Data & Cloud": [
+      "Snowflake", "Data Warehousing", "Data Modeling",
+      "PL/SQL", "XML", "Oracle Cloud", "AWS", "Alteryx"
+    ],
+    "Platforms & Tools": [
+      "Oracle Transportation Management", "Oracle Integration Cloud", "Looker",
+      "CRM Tools", "Jira", "ServiceNow", "Git", "Excel (Power Query, PivotTables, VBA)"
+    ]
   },
 
   certifications: [
@@ -478,40 +450,14 @@ function renderAcademicProjects() {
 function renderSkills() {
   const el = document.getElementById("skills-content");
   if (!el) return;
-
-  // Compute overall "level" from average score
-  const allScores = Object.values(PROFILE.skills).flatMap(cat => cat.items.map(i => i.score));
-  const avg = Math.round(allScores.reduce((a,b) => a + b, 0) / allScores.length);
-  const level = Math.max(1, Math.floor(avg / 10)); // Lv 8–9 for averaging ~85
-
-  const header = `
-    <div class="stat-sheet-header">
-      <div>
-        <div class="sheet-name">JASWANTH REDDY LANKA</div>
-        <div class="sheet-class">Class: Data &amp; Business Analyst</div>
+  el.innerHTML = Object.entries(PROFILE.skills).map(([cat, items]) => `
+    <div class="skill-category">
+      <h4 class="skill-heading">${cat}</h4>
+      <div class="skills-grid">
+        ${items.map(s => `<span class="pill">${s}</span>`).join("")}
       </div>
-      <div class="sheet-level"><i class="fa-solid fa-star"></i> LV ${level} &middot; ${avg} AVG</div>
-    </div>
-  `;
-
-  const categories = Object.entries(PROFILE.skills).map(([cat, data]) => `
-    <div class="stat-category" data-category>
-      <div class="stat-category-title">
-        <i class="${data.icon || 'fa-solid fa-microchip'}"></i> ${cat}
-      </div>
-      ${data.items.map(item => `
-        <div class="stat-row">
-          <div class="stat-name">${item.name}</div>
-          <div class="stat-score">${item.score}</div>
-          <div class="stat-bar-wrap">
-            <div class="stat-bar-fill" data-target="${item.score}" style="width:0%"></div>
-          </div>
-        </div>
-      `).join("")}
     </div>
   `).join("");
-
-  el.innerHTML = `<div class="stat-sheet">${header}${categories}</div>`;
 }
 
 function renderCertifications() {
@@ -656,31 +602,6 @@ async function loadGitHubProjects() {
 
 loadGitHubProjects();
 
-// ===============================
-// STAT BAR FILL (level-up animation)
-// ===============================
-(function statBarFill() {
-  const cats = document.querySelectorAll('.stat-category');
-  if (!cats.length) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const cat = e.target;
-      cat.classList.add('leveled-up');
-      cat.querySelectorAll('.stat-bar-fill').forEach((bar, i) => {
-        const target = bar.getAttribute('data-target') || '0';
-        if (reduce) {
-          bar.style.width = target + '%';
-        } else {
-          setTimeout(() => { bar.style.width = target + '%'; }, i * 90);
-        }
-      });
-      io.unobserve(cat);
-    });
-  }, { threshold: 0.25 });
-  cats.forEach(c => io.observe(c));
-})();
 
 // ===============================
 // CHIBI MASCOT — eye-tracking + speech bubble
@@ -759,28 +680,5 @@ loadGitHubProjects();
   mascot.addEventListener('click', () => {
     qi = Math.floor(Math.random() * quips.length);
     showQuip();
-  });
-})();
-
-// ===============================
-// MODE TOGGLE (DATA / BUSINESS)
-// ===============================
-(function modeSwitch() {
-  const btn = document.getElementById('mode-switch');
-  if (!btn) return;
-  const KEY = 'portfolio-mode';
-  const saved = localStorage.getItem(KEY);
-  if (saved === 'business') document.body.classList.add('business-mode');
-  btn.addEventListener('click', () => {
-    document.body.classList.toggle('business-mode');
-    const isBiz = document.body.classList.contains('business-mode');
-    localStorage.setItem(KEY, isBiz ? 'business' : 'data');
-    // Small haptic-ish pulse on the stat bars to show the theme swap
-    document.querySelectorAll('.stat-category').forEach(c => {
-      c.classList.remove('leveled-up');
-      // trigger reflow so animation re-runs
-      void c.offsetWidth;
-      c.classList.add('leveled-up');
-    });
   });
 })();
